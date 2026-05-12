@@ -20,9 +20,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 SECRET_KEY = 'django-insecure-37oj0czhqd=mu)+kwr!&g788car%#^du&oudhb)@%kykqiw1go'
 
 # Render / production switch
-RENDER = os.getenv("RENDER", False)
-
-DEBUG = not RENDER
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
@@ -98,7 +96,7 @@ WSGI_APPLICATION = 'core.wsgi.application'
 # DATABASE
 # =========================
 
-if RENDER:
+if not DEBUG::
     # Démo Render (SQLite)
     DATABASES = {
         'default': {
