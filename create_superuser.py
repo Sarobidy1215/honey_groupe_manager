@@ -1,7 +1,7 @@
 import os
 import django
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'ton_projet.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'honey_group_manager.settings')
 django.setup()
 
 from django.contrib.auth import get_user_model
@@ -22,4 +22,4 @@ user.is_superuser = True
 user.is_staff = True
 user.save()
 
-print("Superuser prêt")
+print("Superuser OK")
