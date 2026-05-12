@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body { font-family: sans-serif; }
+        .header { text-align: center; color: #2c3e50; }
+        .details { margin-top: 20px; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { border: 1px solid #bdc3c7; padding: 10px; text-align: left; }
+        th { background-color: #ecf0f1; }
+        .total { font-weight: bold; font-size: 1.2em; color: #e67e22; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>HONEY GROUP MADAGASCAR</h1>
+        <h3>Devis de Voyage</h3>
+    </div>
+
+    <div class="details">
+        <p><strong>Circuit :</strong> {{ resultat.demande.circuit.nom_circuit }}</p>
+        <p><strong>Client :</strong> {{ resultat.demande.auteur }}</p>
+        <p><strong>Date :</strong> {{ resultat.date_calcul|date:"d/m/Y" }}</p>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Description</th>
+                <th>Prix Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Prix de vente en Ariary</td>
+                <td>{{ resultat.prix_vente|floatformat:0 }} MGA</td>
+            </tr>
+            <tr>
+                <td>Prix de vente en Euro</td>
+                <td>{{ resultat.prix_vente|floatformat:2 }} €</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <p class="total">Total à payer : {{ resultat.prix_vente|floatformat:0 }} MGA</p>
+</body>
+</html>

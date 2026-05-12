@@ -1,0 +1,363 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Honey Group Madagascar</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:'Poppins',sans-serif;
+        }
+
+        body{
+            overflow-x:hidden;
+        }
+
+        /* =========================
+           NAVBAR
+        ========================= */
+
+        .navbar{
+
+            position:fixed;
+
+            top:0;
+            left:0;
+
+            width:100%;
+
+            height:82px;
+
+            background:white;
+
+            display:flex;
+
+            justify-content:space-between;
+
+            align-items:center;
+
+            padding:0 60px;
+
+            z-index:999;
+
+            box-shadow:0 2px 12px rgba(0,0,0,0.06);
+        }
+
+        .logo-area{
+
+            display:flex;
+
+            align-items:center;
+
+            gap:14px;
+        }
+
+        .logo{
+
+            width:52px;
+            height:52px;
+
+            border-radius:50%;
+
+            object-fit:cover;
+
+            border:2px solid #f1f1f1;
+        }
+
+        .logo-text h2{
+
+            font-size:30px;
+
+            color:#004a99;
+
+            font-weight:700;
+        }
+
+        .logo-text p{
+
+            font-size:13px;
+
+            color:#666;
+        }
+
+        .nav-links{
+
+            display:flex;
+
+            gap:40px;
+        }
+
+        .nav-links a{
+
+            text-decoration:none;
+
+            color:#004a99;
+
+            font-weight:600;
+
+            transition:0.3s;
+        }
+
+        .nav-links a:hover{
+            color:#f37021;
+        }
+
+        .login-btn{
+
+            background:#f37021;
+
+            color:white;
+
+            padding:15px 34px;
+
+            border-radius:50px;
+
+            text-decoration:none;
+
+            font-weight:600;
+
+            transition:0.3s;
+
+            box-shadow:0 4px 14px rgba(243,112,33,0.35);
+        }
+
+        .login-btn:hover{
+
+            background:#ff8c42;
+
+            transform:translateY(-2px);
+        }
+
+        /* =========================
+           HERO SECTION
+        ========================= */
+
+        .hero{
+
+            height:100vh;
+
+            background:
+            linear-gradient(rgba(0,0,0,0.58),rgba(0,0,0,0.58)),
+            url('{% static "img/madagascar.jpg" %}');
+
+            background-size:cover;
+
+            background-position:center;
+
+            display:flex;
+
+            justify-content:center;
+
+            align-items:center;
+
+            text-align:center;
+
+            padding:20px;
+        }
+
+        .hero-content{
+
+            color:white;
+
+            max-width:1000px;
+        }
+
+        .badge{
+
+            display:inline-block;
+
+            background:#00b15d;
+
+            padding:12px 28px;
+
+            border-radius:50px;
+
+            margin-bottom:28px;
+
+            font-weight:600;
+
+            font-size:15px;
+        }
+
+        h1{
+
+            font-size:90px;
+
+            line-height:1.1;
+
+            font-weight:800;
+
+            margin-bottom:30px;
+        }
+
+        .yellow{
+            color:#ffd000;
+        }
+
+        .hero-content p{
+
+            font-size:26px;
+
+            color:#f1f1f1;
+
+            margin-bottom:40px;
+        }
+
+        .hero-btn{
+
+            display:inline-block;
+
+            background:#f37021;
+
+            color:white;
+
+            padding:18px 42px;
+
+            border-radius:60px;
+
+            text-decoration:none;
+
+            font-size:18px;
+
+            font-weight:600;
+
+            transition:0.3s;
+        }
+
+        .hero-btn:hover{
+
+            background:#ff8c42;
+
+            transform:translateY(-3px);
+        }
+
+        /* =========================
+           RESPONSIVE
+        ========================= */
+
+        @media(max-width:992px){
+
+            .navbar{
+                padding:0 20px;
+            }
+
+            .nav-links{
+                display:none;
+            }
+
+            h1{
+                font-size:56px;
+            }
+
+            .hero-content p{
+                font-size:20px;
+            }
+        }
+
+        @media(max-width:600px){
+
+            h1{
+                font-size:42px;
+            }
+
+            .login-btn{
+                padding:12px 22px;
+                font-size:14px;
+            }
+
+            .logo-text h2{
+                font-size:22px;
+            }
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <!-- =========================
+         NAVBAR
+    ========================== -->
+
+    <nav class="navbar">
+
+        <div class="logo-area">
+
+            <img src="{% static 'img/honey.jpg' %}" class="logo">
+
+            <div class="logo-text">
+
+                <h2>Honey Group</h2>
+
+                <p>Voyages sur mesure à Madagascar</p>
+
+            </div>
+
+        </div>
+
+        <div class="nav-links">
+
+            <a href="#">À propos</a>
+
+            <a href="#">Circuits & Destinations</a>
+
+            <a href="#">Excursions</a>
+
+            <a href="#">Signatures</a>
+
+            <a href="#">Blog</a>
+
+        </div>
+
+        <a href="{% url 'login' %}" class="login-btn">
+            Se connecter
+        </a>
+
+    </nav>
+
+    <!-- =========================
+         HERO
+    ========================== -->
+
+    <section class="hero">
+
+        <div class="hero-content">
+
+            <div class="badge">
+                Tourisme Éco-Responsable
+            </div>
+
+            <h1>
+                Votre destination,<br>
+                notre <span class="yellow">expertise</span>
+            </h1>
+
+            <p>
+                Plateforme professionnelle de gestion des cotations
+                et devis touristiques Honey Group Madagascar.
+            </p>
+
+            <a href="{% url 'login' %}" class="hero-btn">
+                Se connecter
+            </a>
+
+        </div>
+
+    </section>
+
+</body>
+
+</html>

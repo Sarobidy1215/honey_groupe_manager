@@ -1,0 +1,27 @@
+{% extends "admin/base.html" %}
+{% load static %}
+
+{% block title %}Honey Group Administration{% endblock %}
+
+{% block extrastyle %}
+<link rel="stylesheet" href="{% static 'css/honey_admin.css' %}">
+{% endblock %}
+
+{% block branding %}
+<div id="site-name" style="display:flex;align-items:center;gap:15px;">
+    
+    <img src="{% static 'img/honey.jpg' %}"
+         style="height:55px;border-radius:12px;">
+
+    <div>
+        <h1 style="margin:0;color:#004a99;font-size:28px;font-weight:700;">
+            HONEY GROUP
+        </h1>
+
+        <p style="margin:0;color:#666;font-size:13px;">
+            Gestion Professionnelle des Cotations
+        </p>
+    </div>
+
+</div>
+{% endblock %}

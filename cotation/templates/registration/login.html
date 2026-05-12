@@ -1,0 +1,190 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+
+<meta charset="UTF-8">
+
+<title>Connexion Admin</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+
+    height:100vh;
+
+    background:
+    linear-gradient(rgba(0,0,0,0.55),rgba(0,0,0,0.55)),
+    url('{% static "img/madagascar.jpg" %}');
+
+    background-size:cover;
+    background-position:center;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.login-box{
+
+    width:420px;
+
+    background:rgba(255,255,255,0.12);
+
+    backdrop-filter:blur(18px);
+
+    border:1px solid rgba(255,255,255,0.2);
+
+    border-radius:25px;
+
+    padding:50px;
+
+    color:white;
+
+    box-shadow:0 8px 32px rgba(0,0,0,0.3);
+}
+
+.logo{
+
+    width:90px;
+
+    display:block;
+
+    margin:auto;
+
+    margin-bottom:20px;
+
+    border-radius:14px;
+
+    background:white;
+
+    padding:6px;
+}
+
+h2{
+
+    text-align:center;
+
+    margin-bottom:30px;
+
+    font-size:32px;
+}
+
+.input-group{
+
+    margin-bottom:20px;
+}
+
+label{
+
+    display:block;
+
+    margin-bottom:8px;
+
+    font-size:14px;
+}
+
+input{
+
+    width:100%;
+
+    padding:14px;
+
+    border:none;
+
+    border-radius:12px;
+
+    outline:none;
+
+    font-size:15px;
+}
+
+button{
+
+    width:100%;
+
+    padding:15px;
+
+    border:none;
+
+    border-radius:50px;
+
+    background:#f37021;
+
+    color:white;
+
+    font-size:17px;
+
+    font-weight:600;
+
+    cursor:pointer;
+
+    transition:0.3s;
+}
+
+button:hover{
+
+    background:#ff8c42;
+    transform:translateY(-2px);
+}
+
+.errorlist{
+    color:#ffb3b3;
+    margin-bottom:10px;
+    list-style:none;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="login-box">
+
+    <img src="{% static 'img/honey.jpg' %}" class="logo">
+
+    <h2>Administration</h2>
+
+    <form method="post">
+
+        {% csrf_token %}
+
+        {{ form.non_field_errors }}
+
+        <div class="input-group">
+
+            <label>Nom d'utilisateur</label>
+
+            {{ form.username }}
+
+        </div>
+
+        <div class="input-group">
+
+            <label>Mot de passe</label>
+
+            {{ form.password }}
+
+        </div>
+
+        <button type="submit">
+            Se connecter
+        </button>
+
+    </form>
+
+</div>
+
+</body>
+</html>
