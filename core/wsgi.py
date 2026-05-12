@@ -1,11 +1,8 @@
 import os
-from django.contrib.auth import get_user_model
+from django.core.wsgi import get_wsgi_application
 
-User = get_user_model()
+# On définit les réglages avant toute chose
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'core.settings')
 
-if not User.objects.filter(username="admin").exists():
-    User.objects.create_superuser(
-        "admin",
-        "admin@admin.com",
-        "honey1205"
-    )
+# Initialisation de l'application
+application = get_wsgi_application()
