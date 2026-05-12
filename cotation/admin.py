@@ -1,7 +1,16 @@
 from django.contrib import admin
 from django.urls import reverse
 from django.utils.safestring import mark_safe
-from .models import *
+# from .models import (
+#     CatalogueDestination,
+#     ReferenceTarifaire,
+#     Circuit,
+#     CircuitJour,
+#     LignePrestation,
+#     DemandeCotation,
+#     ResultatCotation,
+#     ParametreGlobal
+# )
 
 # --- 1. PERSONNALISATION DU HEADER (Logo + Titre) ---
 admin.site.site_header = mark_safe(
