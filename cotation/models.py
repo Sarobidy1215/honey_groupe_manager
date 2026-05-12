@@ -91,15 +91,14 @@ class ResultatCotation(models.Model):
         verbose_name = "Résultat de la Cotation"
 
 # --- SIGNAL DE CALCUL AUTOMATIQUE ---
- @receiver(post_save, sender=DemandeCotation)
+# --- SIGNAL DE CALCUL AUTOMATIQUE ---
+@receiver(post_save, sender=DemandeCotation)
 def auto_calculer(sender, instance, created, **kwargs):
     try:
-        # 🔒 sécurité : si pas de circuit → on stop
         if not instance.circuit:
             return
 
         from .logic.calculator import CotationCalculator
-
         calc = CotationCalculator(instance)
         res = calc.generer_devis_final()
 
@@ -114,5 +113,4 @@ def auto_calculer(sender, instance, created, **kwargs):
         )
 
     except Exception as e:
-        # 🔒 empêche le crash de l’admin
         print("Erreur calcul cotation:", e)
