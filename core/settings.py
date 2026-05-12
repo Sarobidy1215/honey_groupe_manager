@@ -5,15 +5,6 @@ Django settings for core project.
 from pathlib import Path
 import os
 
-User = get_user_model()
-
-if os.environ.get("CREATE_ADMIN") == "true":
-    if not User.objects.filter(username="admin").exists():
-        User.objects.create_superuser(
-            username="admin",
-            email="admin@admin.com",
-            password="honey1205"
-        )
 
 # =========================
 # BASE DIRECTORY
