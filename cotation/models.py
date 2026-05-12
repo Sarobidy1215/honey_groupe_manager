@@ -91,7 +91,7 @@ class ResultatCotation(models.Model):
         verbose_name = "Résultat de la Cotation"
 
 # --- SIGNAL DE CALCUL AUTOMATIQUE ---
-# @receiver(post_save, sender=DemandeCotation)
+ @receiver(post_save, sender=DemandeCotation)
 def auto_calculer(sender, instance, created, **kwargs):
     try:
         # 🔒 sécurité : si pas de circuit → on stop
