@@ -32,6 +32,16 @@ class CotationCalculator:
                 elif u == "JOUR": total += prix_u * 1
                 else: total += prix_u * ligne.quantite_par_defaut
         return total
+        def calculer_prestations(self):
+        if not self.circuit:
+            return 0
+        if not self.circuit:
+            return {
+                'cout_revient': 0,
+                'prix_vente_mga': 0,
+                'prix_vente_eur': 0,
+                'taux_applique': 0
+            }
 
     def generer_devis_final(self):
         transport = self.calculer_transport()
@@ -47,3 +57,4 @@ class CotationCalculator:
             'prix_vente_eur': prix_vente_mga / taux if taux > 0 else 0,
             'taux_applique': taux
         }
+        

@@ -93,16 +93,26 @@ class ResultatCotation(models.Model):
 # --- SIGNAL DE CALCUL AUTOMATIQUE ---
 @receiver(post_save, sender=DemandeCotation)
 def auto_calculer(sender, instance, created, **kwargs):
-    from .logic.calculator import CotationCalculator
-    calc = CotationCalculator(instance)
-    res = calc.generer_devis_final()
-    
-    ResultatCotation.objects.update_or_create(
-        demande=instance,
-        defaults={
-            'cout_total': res['cout_revient'],
-            'prix_vente': res['prix_vente_mga'],
-            'prix_vente_euro': res['prix_vente_eur'],
-            'taux_echange': res['taux_applique'],
-        }
-    )
+    try:
+        # 🔒 sécurité : si pas de circuit → on stop
+        if not instance.circuit:
+            return
+
+        from .logic.calculator import CotationCalculator
+
+        calc = CotationCalculator(instance)
+        res = calc.generer_devis_final()
+
+        ResultatCotation.objects.update_or_create(
+            demande=instance,
+            defaults={
+                'cout_total': res['cout_revient'],
+                'prix_vente': res['prix_vente_mga'],
+                'prix_vente_euro': res['prix_vente_eur'],
+                'taux_echange': res['taux_applique'],
+            }
+        )
+
+    except Exception as e:
+        # 🔒 empêche le crash de l’admin
+        print("Erreur calcul cotation:", e)
