@@ -96,7 +96,7 @@ WSGI_APPLICATION = 'core.wsgi.application'
 # DATABASE
 # =========================
 
-if not DEBUG::
+if not DEBUG:
     # Démo Render (SQLite)
     DATABASES = {
         'default': {
