@@ -1,11 +1,9 @@
-from django.contrib import admin
-from django.urls import path
 from django.http import HttpResponse
+from django.urls import path
 
 def test(request):
-    return HttpResponse("OK WORKING")
+    return HttpResponse("APP OK")
 
 urlpatterns = [
     path('', test),
-    path('admin/', admin.site.urls),
 ]
