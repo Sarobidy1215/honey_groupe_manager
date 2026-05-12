@@ -209,3 +209,4 @@ JAZZMIN_SETTINGS = {
         "cotation.CatalogueDestination": "fas fa-map-marked-alt",
     },
 }
+ALLOWED_HOSTS = ['*']
