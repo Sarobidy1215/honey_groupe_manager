@@ -56,7 +56,6 @@ class CircuitJourAdmin(HoneyStyleAdmin):
 @admin.register(Circuit)
 class CircuitAdmin(HoneyStyleAdmin):
     list_display = ('nom_circuit', 'duree', 'distance_aller_km')
-    inlines = [CircuitJourInline] if 'CircuitJourInline' in globals() else []
 
 @admin.register(DemandeCotation)
 class DemandeCotationAdmin(HoneyStyleAdmin):
