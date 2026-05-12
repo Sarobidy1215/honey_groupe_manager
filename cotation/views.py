@@ -7,8 +7,8 @@ from reportlab.lib import colors
 from .models import ResultatCotation
 from django.shortcuts import render
 
-def home(request):
-    return render(request, 'home.html')
+def index(request):
+    return render(request, 'index.html')
 
 @login_required
 def generer_pdf_devis(request, resultat_id):
