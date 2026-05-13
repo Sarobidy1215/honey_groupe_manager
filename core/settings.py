@@ -5,7 +5,6 @@ Django settings for core project.
 from pathlib import Path
 import os
 
-
 # =========================
 # BASE DIRECTORY
 # =========================
@@ -20,8 +19,8 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 SECRET_KEY = 'django-insecure-37oj0czhqd=mu)+kwr!&g788car%#^du&oudhb)@%kykqiw1go'
 
-# Render / production switch
-DEBUG = False
+# True en local, False sur Render
+DEBUG = os.environ.get("DEBUG", "False") == "True"
 
 ALLOWED_HOSTS = ['*']
 
@@ -98,11 +97,11 @@ WSGI_APPLICATION = 'core.wsgi.application'
 # =========================
 
 if not DEBUG:
-    # Démo Render (SQLite)
+    # Production Render (SQLite dans /tmp pour éviter les restrictions d'écriture)
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': BASE_DIR / 'db.sqlite3',
+            'NAME': '/tmp/db.sqlite3',
         }
     }
 else:
@@ -208,4 +207,3 @@ JAZZMIN_SETTINGS = {
         "cotation.CatalogueDestination": "fas fa-map-marked-alt",
     },
 }
-ALLOWED_HOSTS = ['*']
