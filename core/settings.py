@@ -2,9 +2,8 @@
 Django settings for core project.
 """
 
+import os  # Ajouté pour lire l'environnement ou les chemins de fichiers
 from pathlib import Path
-import os
-
 
 # =========================
 # BASE DIRECTORY
@@ -12,7 +11,12 @@ import os
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+# =========================
+# ENVIRONMENT DETECTION
+# =========================
+# Si la variable d'environnement INFOMANIAK_ENV existe, on est sur le serveur.
+# Sinon, on considère qu'on est en local.
+IS_PRODUCTION = os.environ.get('INFOMANIAK_ENV') == 'True'
 
 # =========================
 # SECURITY
@@ -20,10 +24,26 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 SECRET_KEY = 'django-insecure-37oj0czhqd=mu)+kwr!&g788car%#^du&oudhb)@%kykqiw1go'
 
-# Render / production switch
-DEBUG = False
+# Le mode DEBUG doit être False en production pour la sécurité
+DEBUG = not IS_PRODUCTION
 
-ALLOWED_HOSTS = ['*']
+
+if IS_PRODUCTION:
+    # Configuration pour le serveur INFOMANIAK
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': 'ao7dvw_cotation_db',           # Le nom exact créé à l'étape 1
+            'USER': 'ao7dvw_sarobidy',              # L'utilisateur créé à l'étape 2
+            'PASSWORD': 'rUfqCkMT282L@R', # Ton mot de passe de l'étape 2
+            'HOST': 'ao7dvw.myd.infomaniak.com',     # Le serveur hôte fourni par Infomaniak
+            'PORT': '3306',
+            'OPTIONS': {
+                'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
+                'charset': 'utf8mb4',
+            },
+        }
+    }
 
 # =========================
 # APPLICATIONS
@@ -48,7 +68,8 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
+    # WhiteNoise permet à Django de servir les fichiers statiques de Jazzmin efficacement en production
+    'whitenoise.middleware.WhiteNoiseMiddleware', 
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -94,19 +115,27 @@ TEMPLATES = [
 WSGI_APPLICATION = 'core.wsgi.application'
 
 # =========================
-# DATABASE
+# DATABASE CONFIGURATION
 # =========================
 
-if not DEBUG:
-    # Démo Render (SQLite)
+if IS_PRODUCTION:
+    # Configuration pour le serveur INFOMANIAK
     DATABASES = {
         'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': BASE_DIR / 'db.sqlite3',
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': 'ao7dvw_cotation_db',           # Ta nouvelle base propre sur Infomaniak
+            'USER': 'ao7dvw_sarobidy',              # L'utilisateur associé créé sur Infomaniak
+            'PASSWORD': 'TON_MOT_DE_PASSE_SECURISE', # Le mot de passe défini sur l'interface
+            'HOST': 'ao7dvw.myd.infomaniak.com',     # Le serveur hôte que tu as trouvé
+            'PORT': '3306',
+            'OPTIONS': {
+                'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
+                'charset': 'utf8mb4',
+            },
         }
     }
 else:
-    # Local MySQL
+    # Configuration de ton environnement LOCAL
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.mysql',
@@ -126,10 +155,12 @@ else:
 # =========================
 
 AUTH_PASSWORD_VALIDATORS = [
-    {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
-    {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator'},
-    {'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator'},
-    {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator'},
+    {
+        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'
+    },
+    {
+        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator'
+    },
 ]
 
 # =========================
@@ -156,8 +187,9 @@ STATICFILES_DIRS = [
 
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
-# WhiteNoise (important Render)
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
+# Optimisation WhiteNoise pour la production (compression des fichiers CSS/JS)
+if IS_PRODUCTION:
+    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # =========================
 # LOGIN / LOGOUT
@@ -181,20 +213,25 @@ JAZZMIN_SETTINGS = {
     "site_header": "Honey Group Admin",
     "site_brand": "Honey Group",
     "welcome_sign": "Gestion des Cotations",
+
     "copyright": "Honey Group Madagascar",
+
     "site_logo": "img/honey.jpg",
     "login_logo": "img/honey.jpg",
     "site_icon": "img/honey.jpg",
+
     "theme": "flatly",
+
     "navigation_expanded": True,
     "show_sidebar": True,
+
     "changeform_format": "horizontal_tabs",
 
     "topmenu_links": [
         {
             "name": "Site Web",
             "url": "/",
-            "new_window": True
+            "new_window": True,
         },
     ],
 
@@ -208,4 +245,3 @@ JAZZMIN_SETTINGS = {
         "cotation.CatalogueDestination": "fas fa-map-marked-alt",
     },
 }
-ALLOWED_HOSTS = ['*']
